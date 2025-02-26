@@ -2,6 +2,23 @@
 
 Do you struggle being focus and Get Thigs Done? GeddyDone was created so you can use the Pomodoro method while we deal with the distractions of your phone.
 
+## Project Architecture
+
+```markdown
+- lib/
+  - data/
+    - models/
+    - repositories/
+    - services/
+  - presentation/
+    - screens/
+    - widgets/
+  - business
+    - cubit/
+    - bloc/
+  - main.dart
+```
+
 ## RoadMap - First Version
 
 - [ ] Pomodoro Timer
