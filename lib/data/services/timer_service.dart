@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'package:geddy_done/data/services/notification_service.dart';
+import 'package:geddy_done/contracts/timer_notification.dart';
 import '../repositories/timer_repository.dart';
 
 class TimerService {
   final TimerRepository _repository;
-  final NotificationService _notificationService;
+  final TimerNotification _notification;
   Timer? _timer;
 
   TimerService({
     required TimerRepository repository,
-    required NotificationService notificationService,
+    required TimerNotification notification,
   })  : _repository = repository,
-        _notificationService = notificationService;
+        _notification = notification;
 
   void startTimer() {
     var state = _repository.getTimerState();
@@ -47,10 +47,7 @@ class TimerService {
 
     if (state.currentDuration.inSeconds == 0) {
       timer.cancel();
-      await _notificationService.showNotification(
-        'Pomodoro Complete',
-        'You have completed a pomodoro. Take a break!',
-      );
+      await _notification.notify();
       resetTimer();
     } else {
       _repository.updateState(

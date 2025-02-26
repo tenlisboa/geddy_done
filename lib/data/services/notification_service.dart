@@ -39,13 +39,7 @@ class NotificationService {
       iOS: initializationSettingsDarwin,
     );
 
-    await plugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
-  }
-
-  static Future<void> onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse) async {
-    print(notificationResponse);
+    await plugin.initialize(initializationSettings);
   }
 
   Future<void> showNotification(String title, String body) async {

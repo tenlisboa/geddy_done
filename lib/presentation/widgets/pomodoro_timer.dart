@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geddy_done/data/repositories/timer_repository.dart';
 import 'package:geddy_done/data/services/timer_service.dart';
-import 'package:geddy_done/data/services/notification_service.dart';
+import 'package:geddy_done/contracts/timer_notification.dart';
 
 class PomodoroTimer extends StatefulWidget {
   final Duration pomodoroDuration;
 
-  const PomodoroTimer({super.key, required this.pomodoroDuration});
+  final TimerNotification onFinishNotification;
+
+  const PomodoroTimer(
+      {super.key,
+      required this.pomodoroDuration,
+      required this.onFinishNotification});
 
   @override
   State<PomodoroTimer> createState() => _PomodoroTimerState();
@@ -22,7 +27,7 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
     timerRepository = TimerRepository(initialDuration: widget.pomodoroDuration);
     timerService = TimerService(
       repository: timerRepository,
-      notificationService: NotificationService(),
+      notification: widget.onFinishNotification,
     );
   }
 

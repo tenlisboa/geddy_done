@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geddy_done/data/services/notification_service.dart';
 import 'package:geddy_done/presentation/controllers/app_tab_controller.dart';
+import 'package:geddy_done/presentation/notifications/break_timer_end_notification.dart';
+import 'package:geddy_done/presentation/notifications/pomodoro_timer_end_notification.dart';
 import 'package:geddy_done/presentation/widgets/pomodoro_timer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -42,11 +45,17 @@ class _MyHomePageState extends State<MyHomePage>
           Center(
             child: PomodoroTimer(
               pomodoroDuration: Duration(seconds: 5),
+              onFinishNotification: PomodoroTimerEndNotification(
+                notificationService: NotificationService(),
+              ),
             ),
           ),
           Center(
             child: PomodoroTimer(
               pomodoroDuration: Duration(seconds: 3),
+              onFinishNotification: BreakTimerEndNotification(
+                notificationService: NotificationService(),
+              ),
             ),
           ),
         ],
