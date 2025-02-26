@@ -1,16 +1,17 @@
-# geddy_done
+# GeddyDone
 
-A new Flutter project.
+Do you struggle being focus and Get Thigs Done? GeddyDone was created so you can use the Pomodoro method while we deal with the distractions of your phone.
 
-## Getting Started
+## RoadMap - First Version
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [ ] Pomodoro Timer
+  - [ ] User can set the duration of the timer
+  - [ ] User can set the duration of the rest
+  - [ ] User can set the amount of pomodoros it is going to perform
+  - [ ] Notifies when break starts
+  - [ ] Notifies when break ends
+- [ ] Distraction Dealer
+  - Android
+    - [ ] Initialize the Don't Disturb function white timer is on
+  - iOS
+    - Still figuring out what to do.
