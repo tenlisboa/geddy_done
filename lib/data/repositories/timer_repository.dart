@@ -31,6 +31,7 @@ class TimerRepository extends ChangeNotifier {
       if (pomodoroDuration.inSeconds == 0) {
         timer.cancel();
         isRunning = false;
+        resetTimer();
         await notificationService.showNotification('Pomodoro Complete',
             'You have completed a pomodoro. Take a break!');
       } else {
