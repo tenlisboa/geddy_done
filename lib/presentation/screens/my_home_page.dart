@@ -40,10 +40,14 @@ class _MyHomePageState extends State<MyHomePage>
         controller: _tabController,
         children: [
           Center(
-            child: PomodoroTimer(),
+            child: PomodoroTimer(
+              pomodoroDuration: Duration(seconds: 5),
+            ),
           ),
           Center(
-            child: Text('Break'),
+            child: PomodoroTimer(
+              pomodoroDuration: Duration(seconds: 3),
+            ),
           ),
         ],
       ),

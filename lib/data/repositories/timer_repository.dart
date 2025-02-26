@@ -1,54 +1,22 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:geddy_done/data/services/notification_service.dart';
+import 'package:flutter/foundation.dart';
+import '../states/timer_state.dart';
 
 class TimerRepository extends ChangeNotifier {
-  bool isRunning = false;
-  Duration pomodoroDuration;
-  int pomodoros;
-
-  final NotificationService notificationService = NotificationService();
-
-  late Duration originalPomodoroDuration;
+  TimerState _state;
 
   TimerRepository({
-    required this.pomodoroDuration,
-    this.pomodoros = 4,
-  }) {
-    originalPomodoroDuration = pomodoroDuration;
-  }
+    required Duration initialDuration,
+    int pomodoros = 4,
+  }) : _state = TimerState(
+          currentDuration: initialDuration,
+          originalDuration: initialDuration,
+          pomodoros: pomodoros,
+        );
 
-  Future<void> startTimer() async {
-    isRunning = true;
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) async {
-      if (!isRunning) {
-        timer.cancel();
-        resetTimer();
-        notifyListeners();
-        return;
-      }
-      if (pomodoroDuration.inSeconds == 0) {
-        timer.cancel();
-        isRunning = false;
-        resetTimer();
-        await notificationService.showNotification('Pomodoro Complete',
-            'You have completed a pomodoro. Take a break!');
-      } else {
-        pomodoroDuration -= const Duration(seconds: 1);
-      }
+  TimerState getTimerState() => _state;
 
-      notifyListeners();
-    });
-  }
-
-  void stopTimer() {
-    isRunning = false;
-    notifyListeners();
-  }
-
-  void resetTimer() {
-    pomodoroDuration = originalPomodoroDuration;
+  void updateState(TimerState newState) {
+    _state = newState;
     notifyListeners();
   }
 }
