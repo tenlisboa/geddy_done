@@ -27,22 +27,21 @@ class PomodoroTimer extends StatelessWidget {
             const SizedBox(height: 16),
             state.isRunning
                 ? ElevatedButton(
-                    onPressed: () {
-                      // timerService.stopTimer();
+                    onPressed: () async {
+                      await viewmodel.pause.execute();
                     },
                     child: const Text("Stop"),
                   )
                 : ElevatedButton(
                     onPressed: () async {
                       await viewmodel.start.execute();
-                      // timerService.startTimer();
                     },
                     child: const Text("Start"),
                   ),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () {
-                // timerService.resetTimer();
+              onPressed: () async {
+                await viewmodel.reset.execute();
               },
               child: const Text("Reset"),
             ),

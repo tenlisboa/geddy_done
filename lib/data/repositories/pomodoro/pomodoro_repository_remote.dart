@@ -11,27 +11,31 @@ class PomodoroRepositoryRemote implements PomodoroRepository {
   })  : _notification = notification,
         _state = Pomodoro(
           currentDuration: const Duration(minutes: 25),
-        );
+        ) {
+    _stateController = StreamController<Pomodoro>.broadcast();
+  }
 
   final PomodoroNotification _notification;
   late Timer _timer;
   Pomodoro _state;
+  late final StreamController<Pomodoro> _stateController;
 
   @override
-  Pomodoro get state => _state;
+  Stream<Pomodoro> get stateStream => _stateController.stream;
 
   @override
-  Future<Result<void>> pause() {
-    // TODO: implement pause
-    throw UnimplementedError();
+  Pomodoro get currentState => _state;
+
+  void _emitState(Pomodoro newState) {
+    _state = newState;
+    _stateController.add(_state);
   }
 
   @override
-  Future<Result<Pomodoro>> start(
-      Function(Pomodoro) modificationCallback) async {
-    if (_state.isRunning) return Result.ok(_state);
+  Future<Result<void>> start() async {
+    if (_state.isRunning) return Result.ok(null);
 
-    _state = _state.copyWith(isRunning: true);
+    _emitState(_state.copyWith(isRunning: true));
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
       if (!_state.isRunning) {
@@ -40,29 +44,38 @@ class PomodoroRepositoryRemote implements PomodoroRepository {
       }
 
       if (_state.currentDuration.inSeconds == 0) {
-        resetTimer();
+        await reset();
         await _notification.notify();
       } else {
-        _state = _state.copyWith(
+        _emitState(_state.copyWith(
           currentDuration: _state.currentDuration - const Duration(seconds: 1),
-        );
+        ));
       }
-
-      modificationCallback(_state);
     });
 
-    return Result.ok(_state);
+    return Result.ok(null);
   }
 
-  void updateState(Pomodoro state) {
-    _state = state;
+  @override
+  Future<Result<void>> pause() async {
+    _emitState(_state.copyWith(isRunning: false));
+    _timer.cancel();
+    return Result.ok(null);
   }
 
-  void resetTimer() {
-    _state = _state.copyWith(
+  @override
+  Future<Result<void>> reset() async {
+    _timer.cancel();
+    _emitState(_state.copyWith(
       currentDuration: _state.initialDuration,
       isRunning: false,
-    );
+    ));
+    return Result.ok(null);
+  }
+
+  @override
+  void dispose() {
     _timer.cancel();
+    _stateController.close();
   }
 }

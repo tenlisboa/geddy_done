@@ -2,8 +2,12 @@ import 'package:geddy_done/domain/models/pomodoro.dart';
 import 'package:geddy_done/utils/result.dart';
 
 abstract class PomodoroRepository {
-  Future<Result<Pomodoro>> start(Function(Pomodoro) modificationCallback);
+  Stream<Pomodoro> get stateStream;
+  Future<Result<void>> start();
   Future<Result<void>> pause();
+  Future<Result<void>> reset();
 
-  Pomodoro get state;
+  void dispose();
+
+  Pomodoro get currentState;
 }
