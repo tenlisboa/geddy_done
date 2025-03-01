@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geddy_done/ui/pomodoro/widgets/controllers/app_tab_controller.dart';
-import 'package:geddy_done/ui/pomodoro/viewmodels/pomodoro_viewmodel.dart';
+import 'package:geddy_done/ui/pomodoro/viewmodels/timer_viewmodel.dart';
 import 'package:geddy_done/ui/pomodoro/widgets/pomodoro_timer.dart';
 
 class PomodoroScreen extends StatefulWidget {
-  final PomodoroViewmodel viewModel;
+  final TimerViewmodel pomodoroViewModel;
+  final TimerViewmodel timerViewModel;
 
-  const PomodoroScreen({super.key, required this.viewModel});
+  const PomodoroScreen({
+    super.key,
+    required this.pomodoroViewModel,
+    required this.timerViewModel,
+  });
 
   @override
   State<PomodoroScreen> createState() => _PomodoroScreenState();
@@ -44,16 +49,13 @@ class _PomodoroScreenState extends State<PomodoroScreen>
         children: [
           Center(
             child: PomodoroTimer(
-              viewmodel: widget.viewModel,
+              viewmodel: widget.pomodoroViewModel,
             ),
           ),
           Center(
-            // child: PomodoroTimer(
-            //   pomodoroDuration: Duration(seconds: 3),
-            //   onFinishNotification: BreakTimerEndNotification(
-            //     notificationService: NotificationService(),
-            //   ),
-            child: const Placeholder(),
+            child: PomodoroTimer(
+              viewmodel: widget.timerViewModel,
+            ),
           ),
         ],
       ),

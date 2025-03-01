@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:geddy_done/data/repositories/pomodoro/pomodoro_repository_remote.dart';
+import 'package:geddy_done/data/repositories/timer/time_repository_remote.dart';
+import 'package:geddy_done/data/services/notifications/break_timer_end_notification.dart';
 import 'package:geddy_done/data/services/notifications/notification_service.dart';
 import 'package:geddy_done/data/services/notifications/pomodoro_timer_end_notification.dart';
-import 'package:geddy_done/ui/pomodoro/viewmodels/pomodoro_viewmodel.dart';
+import 'package:geddy_done/ui/pomodoro/viewmodels/timer_viewmodel.dart';
 import 'package:geddy_done/ui/pomodoro/widgets/pomodoro_screen.dart';
 
 void main() {
@@ -21,11 +22,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: PomodoroScreen(
-        viewModel: PomodoroViewmodel(
-          pomodoroRepository: PomodoroRepositoryRemote(
+        pomodoroViewModel: TimerViewmodel(
+          pomodoroRepository: TimerRepositoryRemote(
             notification: PomodoroTimerEndNotification(
               notificationService: NotificationService(),
             ),
+          ),
+        ),
+        timerViewModel: TimerViewmodel(
+          pomodoroRepository: TimerRepositoryRemote(
+            notification: BreakTimerEndNotification(
+              notificationService: NotificationService(),
+            ),
+            duration: Duration(minutes: 5),
           ),
         ),
       ),

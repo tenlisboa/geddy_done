@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:geddy_done/data/repositories/pomodoro/pomodoro_repository.dart';
+import 'package:geddy_done/data/repositories/timer/timer_repository.dart';
 import 'package:geddy_done/domain/models/pomodoro.dart';
 import 'package:geddy_done/utils/command.dart';
 import 'package:geddy_done/utils/result.dart';
 
-class PomodoroViewmodel extends ChangeNotifier {
+class TimerViewmodel extends ChangeNotifier {
   late Command0<void> start;
   late Command0<void> pause;
   late Command0<void> reset;
@@ -13,10 +13,10 @@ class PomodoroViewmodel extends ChangeNotifier {
   late Pomodoro _pomodoro;
   StreamSubscription<Pomodoro>? _subscription;
 
-  final PomodoroRepository _pomodoroRepository;
+  final TimerRepository _pomodoroRepository;
 
-  PomodoroViewmodel({
-    required PomodoroRepository pomodoroRepository,
+  TimerViewmodel({
+    required TimerRepository pomodoroRepository,
   }) : _pomodoroRepository = pomodoroRepository {
     start = Command0(_start);
     pause = Command0(_pause);

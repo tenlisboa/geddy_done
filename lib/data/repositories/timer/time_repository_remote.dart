@@ -1,16 +1,17 @@
 import 'dart:async';
 
-import 'package:geddy_done/data/repositories/pomodoro/pomodoro_repository.dart';
+import 'package:geddy_done/data/repositories/timer/timer_repository.dart';
 import 'package:geddy_done/data/services/notifications/pomodoro_notification.dart';
 import 'package:geddy_done/domain/models/pomodoro.dart';
 import 'package:geddy_done/utils/result.dart';
 
-class PomodoroRepositoryRemote implements PomodoroRepository {
-  PomodoroRepositoryRemote({
+class TimerRepositoryRemote implements TimerRepository {
+  TimerRepositoryRemote({
     required PomodoroNotification notification,
+    Duration? this.duration,
   })  : _notification = notification,
         _state = Pomodoro(
-          currentDuration: const Duration(minutes: 25),
+          currentDuration: duration ?? Duration(minutes: 25),
         ) {
     _stateController = StreamController<Pomodoro>.broadcast();
   }
@@ -19,6 +20,7 @@ class PomodoroRepositoryRemote implements PomodoroRepository {
   late Timer _timer;
   Pomodoro _state;
   late final StreamController<Pomodoro> _stateController;
+  Duration? duration;
 
   @override
   Stream<Pomodoro> get stateStream => _stateController.stream;

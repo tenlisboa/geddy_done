@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:geddy_done/ui/pomodoro/viewmodels/pomodoro_viewmodel.dart';
+import 'package:geddy_done/ui/pomodoro/viewmodels/timer_viewmodel.dart';
 
 class PomodoroTimer extends StatelessWidget {
-  final PomodoroViewmodel viewmodel;
+  final TimerViewmodel viewmodel;
 
   const PomodoroTimer({
     super.key,
