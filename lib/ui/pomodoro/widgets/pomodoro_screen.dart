@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geddy_done/old/presentation/controllers/app_tab_controller.dart';
+import 'package:geddy_done/ui/pomodoro/widgets/controllers/app_tab_controller.dart';
 import 'package:geddy_done/ui/pomodoro/viewmodels/pomodoro_viewmodel.dart';
 import 'package:geddy_done/ui/pomodoro/widgets/pomodoro_timer.dart';
 

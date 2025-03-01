@@ -24,7 +24,6 @@ class PomodoroViewmodel extends ChangeNotifier {
   Pomodoro get pomodoro => _pomodoro;
 
   Future<Result<Pomodoro>> _start() async {
-    // TODO: Research if this callback makes sense, if theres a way to make it different
     var result = await _pomodoroRepository.start((Pomodoro state) {
       _pomodoro = state;
       notifyListeners();
