@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:geddy_done/contracts/timer_notification.dart';
+import 'package:geddy_done/old/contracts/timer_notification.dart';
 import '../repositories/timer_repository.dart';
 
 class TimerService {

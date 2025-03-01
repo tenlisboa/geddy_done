@@ -1,7 +1,7 @@
-import 'package:geddy_done/contracts/timer_notification.dart';
-import 'package:geddy_done/data/services/notification_service.dart';
+import 'package:geddy_done/data/services/notifications/notification_service.dart';
+import 'package:geddy_done/data/services/notifications/pomodoro_notification.dart';
 
-class PomodoroTimerEndNotification extends TimerNotification {
+class PomodoroTimerEndNotification extends PomodoroNotification {
   final NotificationService _notificationService;
 
   PomodoroTimerEndNotification(
